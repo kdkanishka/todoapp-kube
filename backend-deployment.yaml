@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todobackend-config
+data:
+  datasourceUrl: jdbc:mariadb://todoapp-mariadb-service:3306/tododb
+  datasourcePassword : mypass123
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todobackend-deployment
+  labels:
+    app : todobackend
+spec:
+  # replicas: 3
+  selector:
+    matchLabels:
+      app: todobackend
+  template:
+    metadata:
+      labels:
+        app: todobackend
+    spec:
+      containers:
+      - name: todobackend
+        image: kdkanishka/todo-service:1.0
+        env:
+          - name: QUARKUS_DATASOURCE_JDBC_URL
+            valueFrom: 
+              configMapKeyRef:
+                name: todobackend-config
+                key: datasourceUrl
+          - name: QUARKUS_DATASOURCE_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: todobackend-config
+                key: datasourcePassword
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todobackend-service
+spec:
+  selector:
+    app: todobackend
+  ports:
+  - port: 18080
+    protocol: TCP
+    targetPort: 8080

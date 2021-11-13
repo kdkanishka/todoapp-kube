@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp-mariadb
+spec:
+  selector:
+    matchLabels:
+      app: todoapp-mariadb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: todoapp-mariadb
+    spec:
+      containers:
+      - name: todoapp-mariadb
+        image: mariadb:10.5.12
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: mypass123
+          - name: MYSQL_DATABASE
+            value: tododb
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306
+          name: mariadbport
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: mariadb-persistent-storage
+      volumes:
+        - name: mariadb-persistent-storage
+          persistentVolumeClaim:
+            claimName: mariadb-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoapp-mariadb-service
+spec:
+  selector:
+    app: todoapp-mariadb
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306
