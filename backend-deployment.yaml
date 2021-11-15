@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: todobackend
-        image: kdkanishka/todo-service:1.0
+        image: kdkanishka/todo-service:1.2
         env:
           - name: QUARKUS_DATASOURCE_JDBC_URL
             valueFrom: 
@@ -38,7 +38,7 @@ spec:
                 key: datasourcePassword
         resources:
           limits:
-            memory: "128Mi"
+            memory: "512Mi"
             cpu: "500m"
         ports:
         - containerPort: 8080

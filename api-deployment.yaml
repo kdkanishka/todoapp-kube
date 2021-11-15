@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: todoapi
-        image: kdkanishka/todo-api:1.1
+        image: kdkanishka/todo-api:1.2
         env:
           - name: BACKEND_SERVICE
             valueFrom:
