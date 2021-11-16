@@ -15,7 +15,11 @@
     * `ab -n 1000 -c 100 http://todoapi.com/todo/export`
 
 # Related projects
-    * Frontend app - https://github.com/kdkanishka/todoapp.git
-    * ToDo api - https://github.com/kdkanishka/todo-api.git
-    * ToDo service - https://github.com/kdkanishka/todo-backend.git
+* Frontend app - 
+    * https://github.com/kdkanishka/todoapp.git
+* ToDo api - 
+    * https://github.com/kdkanishka/todo-api.git
+* ToDo service - 
+    * https://github.com/kdkanishka/todo-backend.git
+
 
