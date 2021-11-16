@@ -7,8 +7,12 @@
 
 # Session Resources
 * Clone https://github.com/kdkanishka/todoapp-kube.git
-* Create a deployment
+* Create deployments
     * `kubectl apply -f <yaml file>`
+* Add hostentry for todoapi.com
+    * `192.168.49.2 todoapi.com`
+* Load testing
+    * `ab -n 1000 -c 100 http://todoapi.com/todo/export`
 
 
 
